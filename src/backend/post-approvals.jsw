@@ -1,0 +1,16 @@
+import { createPost } from 'wix-blog-backend';
+import { getUserFullName } from 'backend/utils.jsw';
+
+export async function publishUserPost(postData) {
+  const displayName = await getUserFullName(postData.authorId);
+
+  return await createPost({
+    title: postData.title,
+    content: postData.content,
+    published: true,
+    coverImage: postData.image,
+    author: {
+      displayName: displayName || "Guest"
+    }
+  });
+}

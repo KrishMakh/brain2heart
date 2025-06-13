@@ -1,0 +1,15 @@
+import wixUsers from 'wix-users-backend';
+import wixData from 'wix-data';
+
+export async function getUserFullName(userId) {
+  const result = await wixData.query('PrivateMembersData')
+    .eq('_id', userId)
+    .find();
+
+  if (result.items.length > 0) {
+    const member = result.items[0];
+    return `${member.firstName} ${member.lastName}`;
+  }
+
+  return "Unknown Author";
+}
